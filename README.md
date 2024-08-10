@@ -38,20 +38,21 @@ AtlasGUI is a robust and intuitive tool designed for seamless image and video pr
 
 We welcome contributions! Please follow these steps:
 
-1. **Fork the Repository**
-2. **Create a Branch**:
+### Fork the Repository
+
+1. **Create a Branch**:
    ```bash
    git checkout -b feature-branch
    ```
-3. **Commit Your Changes**:
+2. **Commit Your Changes**:
    ```bash
    git commit -m "Description of changes"
    ```
-4. **Push to the Branch**:
+3. **Push to the Branch**:
    ```bash
    git push origin feature-branch
    ```
-5. **Open a Pull Request**
+4. **Open a Pull Request**
 
 ## License
 
@@ -60,5 +61,3 @@ This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) 
 ## Contact
 
 For support, please contact [atlasatakahraman.com@gmail.com](mailto:atlasatakahraman.com@gmail.com).
-
----
