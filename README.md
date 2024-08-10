@@ -32,6 +32,7 @@ AtlasGUI is a robust and intuitive tool designed for seamless image and video pr
    ```
 
 3. **Run the Application**:
+
    Execute `start-atlasgui.bat` to start the application ^^.
 
 ## Contributing
