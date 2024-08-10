@@ -1,10 +1,10 @@
-Here's the updated `README.md`:
-
 ---
 
 # TheAtlasGUI
 
-AtlasGUI is a robust and intuitive tool designed for seamless image and video processing on Windows. With its user-friendly interface, AtlasGUI simplifies running models for upscaling tasks, including ESRGAN, RIFE, and CUGAN.
+AtlasGUI is a robust and intuitive tool designed for seamless image and video processing on Windows. With its user-friendly interface, AtlasGUI simplifies running models for upscaling tasks, including ESRGAN, RIFE, and CUGAN. 
+
+- TheAtlasGUI is inspired by TAS, known as [TheAnimeScripter](https://github.com/NevermindNilas/TheAnimeScripter). Please support the [author](https://github.com/NevermindNilas)!
 
 ## Features
 
@@ -62,5 +62,3 @@ This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) 
 For support, please contact [atlasatakahraman.com@gmail.com](mailto:atlasatakahraman.com@gmail.com).
 
 ---
-
-Feel free to modify this as needed!
