@@ -1,0 +1,2 @@
+file = input("")
+print(file)
