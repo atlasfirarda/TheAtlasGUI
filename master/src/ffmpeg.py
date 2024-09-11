@@ -1,12 +1,8 @@
 import cv2
-import sys
 import os
-import threading
-import numpy as np
 import logging
-import shutil
 
-from coloredPrints import red, green, yellow
+from rife import RIFE
 
 if os.name == "nt":
     appdata = os.getenv("APPDATA")
@@ -38,7 +34,7 @@ else:
 
 class FFMPEG:
 
-    def __init__(self, filePath: str):
+    def __init__(self, filePath: str, factor: int):
 
         if '"' in filePath:
             self.filePath = filePath.replace('"', "")
@@ -50,6 +46,7 @@ class FFMPEG:
             self.frames = capture.get(cv2.CAP_PROP_FRAME_COUNT)
             self.fps = capture.get(cv2.CAP_PROP_FPS)
             self.name = os.path.splitext(os.path.basename(self.filePath))[0]
+            self.factor = factor
         except FileNotFoundError:
             self.frames = 0
             toLog = f"the {self.filePath} is can't be able to get video frames."
@@ -60,6 +57,10 @@ class FFMPEG:
 
         try:
             self.duration = self.frames / self.fps
+
+            self.upFps = self.fps * self.factor
+            self.upFrames = self.frames * self.factor
+            self.upDuration = self.upFrames / self.upFps
         except ZeroDivisionError:
             toLog = f"the {self.filePath} is can't be able to get video duration."
             logging.info(toLog)
@@ -81,7 +82,7 @@ class FFMPEG:
     def merge(self):
 
         os.system(
-            command=rf'ffmpeg.exe -r "{self.fps}" -i "{tmp_framesDir}\%0d.png" -i "{self.filePath}" -c:v libx264 -preset veryslow -qp 0 -r {self.fps} "{self.name}.mp4"'
+            command=rf'ffmpeg.exe -r "{self.upFps}" -i "{out_framesDir}\%0d.png" -i "{self.filePath}" -c:v libx264 -preset veryslow -qp 0 -r "{self.upFps}" -t "{self.upDuration}" -y "{self.name}.mp4"'
         )
 
     def extractInfo(self):

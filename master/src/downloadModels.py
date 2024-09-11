@@ -54,13 +54,6 @@ def modelsMap(
                         return "4x-AnimeSharp_fp16.onnx"
                     else:
                         return "4x-AnimeSharp_fp32.onnx"
-                else:
-                    print(
-                        yellow("WARNING:"),
-                        red("the ANIMESHARP model is not supported by NCNN.."),
-                        yellow("Please use, CUDA version anyway."),
-                    )
-                    return "no-model"
         case "wtp-uds-esrgan" | "uds-esrgan" | "wtp-uds":
             if modelType == "pth":
                 return "4x-WTP-UDS-Esrgan.pth"
@@ -83,13 +76,6 @@ def modelsMap(
                         return "2x-Bubble-AnimeScale-Compact-v1_fp16.onnx"
                     else:
                         return "2x-Bubble-AnimeScale-Compact-v1_fp32.onnx"
-                else:
-                    print(
-                        yellow("WARNING:"),
-                        red("the BUBBLE model is not supported by NCNN.."),
-                        yellow("Please use, CUDA version anyway."),
-                    )
-                    return "no-model"
         case "cugan" | "cugan-pro":
             if modelType == "pth":
                 return "cugan_pro-denoise3x-up2x.pth"
@@ -99,129 +85,60 @@ def modelsMap(
                         return "cugan_pro-denoise3x-up2x_fp16.onnx"
                     else:
                         return "cugan_pro-denoise3x-up2x_fp32.onnx"
-                else:
-                    print(
-                        yellow("WARNING:"),
-                        red("the CUGAN model is not supported by NCNN.."),
-                        yellow("Please use, CUDA version anyway."),
-                    )
-                    return "no-model"
         case "rife417":
             if modelType == "ncnn":
                 if not ensemble:
                     if half:
-                        return "rife417-lite.rar"
+                        return "rife-v4.17_lite_ensembleFalse.rar"
                     else:
-                        return "rife417.rar"
+                        return "rife-v4.17_ensembleFalse.rar"
                 else:
                     if half:
-                        return "rife417-ensemble-lite.rar"
+                        return "rife-v4.17_lite_ensembleTrue.rar"
                     else:
-                        return "rife417-ensemble.rar"
-            else:
-                print(
-                    yellow("WARNING:"),
-                    red("the RIFE417 model is currently not supported by CUDA.."),
-                    yellow("Please use, NCNN version anyway."),
-                )
-                return "no-model"
+                        return "rife-v4.17_ensembleTrue.rar"
         case "rife418":
             if modelType == "ncnn":
                 if not ensemble:
-                    return "rife418.rar"
+                    return "rife-v4.18_ensembleFalse.rar"
                 else:
-                    return "rife418-ensemble.rar"
-            else:
-                print(
-                    yellow("WARNING:"),
-                    red("the RIFE418 model is currently not supported by CUDA.."),
-                    yellow("Please use, NCNN version anyway."),
-                )
-                return "no-model"
+                    return "rife-v4.18_ensembleTrue.rar"
         case "rife419":
             if modelType == "ncnn":
                 if not ensemble:
-                    return "rife419.rar"
+                    return "rife-v4.19_beta_ensembleFalse.rar"
                 else:
-                    return "rife419-ensemble.rar"
-            else:
-                print(
-                    yellow("WARNING:"),
-                    red("the RIFE419 model is currently not supported by CUDA.."),
-                    yellow("Please use, NCNN version anyway."),
-                )
-                return "no-model"
+                    return "rife-v4.19_beta_ensembleTrue.rar"
         case "rife420":
             if modelType == "ncnn":
                 if not ensemble:
-                    return "rife420.rar"
+                    return "rife-v4.20_ensembleFalse.rar"
                 else:
-                    return "rife420-ensemble.rar"
-            else:
-                print(
-                    yellow("WARNING:"),
-                    red("the RIFE420 model is currently not supported by CUDA.."),
-                    yellow("Please use, NCNN version anyway."),
-                )
-                return "no-model"
+                    return "rife-v4.20_ensembleTrue.rar"
         case "rife421":
             if modelType == "ncnn":
                 if not ensemble:
-                    return "rife421.rar"
-                else:
-                    print(
-                        yellow("WARNING:"),
-                        red("the RIFE421 model is not supported by ENSEMBLE anymore.."),
-                    )
-                return "no-model"
-            else:
-                print(
-                    yellow("WARNING:"),
-                    red("the RIFE421 model is currently not supported by CUDA.."),
-                    yellow("Please use, NCNN version anyway."),
-                )
-                return "no-model"
-        case "rife20":
+                    return "rife-v4.21_ensembleFalse.rar"
+        case "rife422":
             if modelType == "ncnn":
                 if not ensemble:
-                    return "rife20.rar"
+                    if half:
+                        return "rife-v4.22_lite_ensembleFalse.rar"
+                    else:
+                        return "rife-v4.22_ensembleFalse.rar"
+        case "rife424":
+            if modelType == "ncnn":
+                if not ensemble:
+                    return "rife-v4.24_ensembleFalse.rar"
                 else:
-                    print(
-                        yellow("WARNING:"),
-                        red("the RIFE20 model is not supported by ENSEMBLE.."),
-                    )
-                return "no-model"
-            else:
-                print(
-                    yellow("WARNING:"),
-                    red("the RIFE20 model is currently not supported by CUDA.."),
-                    yellow("Please use, NCNN version anyway."),
-                )
-                return "no-model"
+                    return "rife-v4.24_ensembleTrue.rar"
         case "rife40":
             if modelType == "ncnn":
-                if not ensemble:
+                if ensemble:
                     if half:
-                        return "rife40-fast.rar"
+                        return "rife-v4_ensembleTrue_fastTrue.rar"
                     else:
-                        print(
-                            yellow("WARNING:"),
-                            red("the RIFE40 model is not supported by FULL VERSION.."),
-                            yellow("Please use, LITE version anyway."),
-                        )
-                        return "no-model"
-                else:
-                    if half:
-                        return "rife40-ensemble-fast.rar"
-                    else:
-                        return "rife40-ensemble.rar"
-            else:
-                print(
-                    yellow("WARNING:"),
-                    red("the RIFE40 model is currently not supported by CUDA.."),
-                    yellow("Please use, NCNN version anyway."),
-                )
-                return "no-model"
+                        return "rife-v4_ensembleTrue_fastFalse.rar"
         case _:
             if modelType == "pth":
                 print(
@@ -313,75 +230,25 @@ def downloadModels(
         downloadPath = os.path.join(folderPath, "onnx")
 
     elif filename.endswith(".rar"):
-        if not os.path.exists(os.path.join(folderPath, "ncnn")):
-            os.makedirs(os.path.join(folderPath, "ncnn"))
+        if not os.path.exists(os.path.join(folderPath)):
+            os.makedirs(os.path.join(folderPath))
 
-        if "-ensemble-lite" in filename or "-ensemble-fast" in filename:
-            if not os.path.exists(os.path.join(folderPath, "ncnn", "ensemble-fast")):
-                os.makedirs(os.path.join(folderPath, "ncnn", "ensemble-fast"))
-        elif "-lite" in filename or "-fast" in filename:
-            if not os.path.exists(os.path.join(folderPath, "ncnn", "fast")):
-                os.makedirs(os.path.join(folderPath, "ncnn", "fast"))
-        elif "-ensemble" in filename:
-            if not os.path.exists(os.path.join(folderPath, "ncnn", "ensemble")):
-                os.makedirs(os.path.join(folderPath, "ncnn", "ensemble"))
-
-        if "-ensemble-lite" in filename or "-ensemble-fast" in filename:
-            os.rename(
-                os.path.join(folderPath, filename),
-                os.path.join(folderPath, "ncnn", "ensemble-fast", filename),
-            )
-            downloadPath = os.path.join(folderPath, "ncnn", "ensemble-fast")
-        elif "-lite" in filename or "-fast" in filename:
-            os.rename(
-                os.path.join(folderPath, filename),
-                os.path.join(folderPath, "ncnn", "fast", filename),
-            )
-            downloadPath = os.path.join(folderPath, "ncnn", "fast")
-        elif "-ensemble" in filename:
-            os.rename(
-                os.path.join(folderPath, filename),
-                os.path.join(folderPath, "ncnn", "ensemble", filename),
-            )
-            downloadPath = os.path.join(folderPath, "ncnn", "ensemble")
-        else:
-            os.rename(
-                os.path.join(folderPath, filename),
-                os.path.join(folderPath, "ncnn", filename),
-            )
-            downloadPath = os.path.join(folderPath, "ncnn")
+        downloadPath = os.path.join(folderPath)
 
     if filename.endswith(".rar"):
         import rarfile
 
-        if "-ensemble-lite" in filename or "-ensemble-fast" in filename:
-            file = rarfile.RarFile(
-                os.path.join(folderPath, "ncnn", "ensemble-fast", filename)
-            )
-            file.extractall(path=os.path.join(folderPath, "ncnn", "ensemble-fast"))
-            os.remove(os.path.join(folderPath, "ncnn", "ensemble-fast", filename))
-        elif "-lite" in filename or "-fast" in filename:
-            file = rarfile.RarFile(os.path.join(folderPath, "ncnn", "fast", filename))
-            file.extractall(path=os.path.join(folderPath, "ncnn", "fast"))
-            os.remove(os.path.join(folderPath, "ncnn", "fast", filename))
-        elif "-ensemble" in filename:
-            file = rarfile.RarFile(
-                os.path.join(folderPath, "ncnn", "ensemble", filename)
-            )
-            file.extractall(path=os.path.join(folderPath, "ncnn", "ensemble"))
-            os.remove(os.path.join(folderPath, "ncnn", "ensemble", filename))
-        else:
-            file = rarfile.RarFile(os.path.join(folderPath, "ncnn", filename))
-            file.extractall(path=os.path.join(folderPath, "ncnn"))
-            os.remove(os.path.join(folderPath, "ncnn", filename))
+        file = rarfile.RarFile(os.path.join(folderPath, filename))
+        file.extractall(path=os.path.join(folderPath))
+        os.remove(os.path.join(folderPath, filename))
 
     print(
         green("SUCCESS"),
-        yellow(filename[:-4]),
+        yellow(filename),
         green("model is downloaded to"),
         yellow(downloadPath),
     )
-    toLog = f"{filename[:-4]} is downloaded to {downloadPath}"
+    toLog = f"{filename} is downloaded to {downloadPath}"
     logging.info(toLog)
 
     # if filename.endswith(".pth"):
@@ -406,7 +273,7 @@ def download(
 
     filename = modelsMap(model=model, modelType=modelType, half=half, ensemble=ensemble)
 
-    folderPath = os.path.join(modelsDir, model)
+    folderPath = os.path.join(modelsDir, filename[:-4])
     os.makedirs(folderPath, exist_ok=True)
 
     downloadUrl = f"{TAGURL}{filename}"

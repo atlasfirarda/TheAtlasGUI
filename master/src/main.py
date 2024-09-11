@@ -1,19 +1,12 @@
-import subprocess
 import os
-import sys
 import inquirer
 import inquirer.prompt
-import cv2
-import logging
+import shutil
 
 from coloredPrints import green, red, green
 from downloadModels import modelsDir, modelsMap, download
-from ffmpeg import FFMPEG
+from ffmpeg import FFMPEG, framesDir, tmp_framesDir, out_framesDir
 from rife import RIFE
-
-# from ffmpeg import FFMPEG
-# from rife import RIFE
-# import torch
 
 
 class Initialize:
@@ -111,13 +104,14 @@ if __name__ == "__main__":
                 "intSel",
                 message="Which model do you prefer to use interpolate?",
                 choices=[
-                    "Rife-2.0",
-                    "Rife-4.0",
-                    "Rife-4.17",
-                    "Rife-4.18",
-                    "Rife-4.19",
-                    "Rife-4.20",
-                    "Rife-4.21",
+                    "Rife-V4.0",
+                    "Rife-V4.17",
+                    "Rife-V4.18",
+                    "Rife-V4.19",
+                    "Rife-V4.20",
+                    "Rife-V4.21",
+                    "Rife-V4.22",
+                    "Rife-V4.24",
                 ],
             )
         ]
@@ -127,50 +121,37 @@ if __name__ == "__main__":
         os.system(command="cls")
         Initialize("", "", "", "")
 
-        if intSel == "Rife-2.0":
-
-            rifeModel = "rife20"
-
-            rifeOptions = [
-                inquirer.List(
-                    "rifeSel",
-                    message="Which RIFE-2.0 model do you prefer?",
-                    choices=["Normal"],
-                )
-            ]
-
-            rifeAnswers = inquirer.prompt(rifeOptions)
-            rifeSel = rifeAnswers["rifeSel"]
-
-        elif intSel == "Rife-4.0":
+        if intSel == "Rife-V4.0":
 
             rifeModel = "rife40"
 
             rifeOptions = [
                 inquirer.List(
                     "rifeSel",
-                    message="Which RIFE-4.0 model do you prefer?",
-                    choices=["Normal", "Ensemble", "Ensemble-Fast"],
+                    message="Which RIFE-V4.0 model do you prefer?",
+                    choices=["Ensemble", "Ensemble-Lite"],
                 )
             ]
 
             rifeAnswers = inquirer.prompt(rifeOptions)
             rifeSel = rifeAnswers["rifeSel"]
 
-            if rifeSel == "Ensemble":
+            if rifeSel == "Lite":
+                rifeHalf = True
+            elif rifeSel == "Ensemble":
                 rifeEnsemble = True
-            elif rifeSel == "Ensemble-Fast":
+            elif rifeSel == "Ensemble-Lite":
                 rifeEnsemble = True
                 rifeHalf = True
 
-        elif intSel == "Rife-4.17":
+        elif intSel == "Rife-V4.17":
 
             rifeModel = "rife417"
 
             rifeOptions = [
                 inquirer.List(
                     "rifeSel",
-                    message="Which RIFE-4.17 model do you prefer?",
+                    message="Which RIFE-V4.17 model do you prefer?",
                     choices=["Normal", "Lite", "Ensemble", "Ensemble-Lite"],
                 )
             ]
@@ -185,14 +166,15 @@ if __name__ == "__main__":
             elif rifeSel == "Ensemble-Lite":
                 rifeEnsemble = True
                 rifeHalf = True
-        elif intSel == "Rife-4.18":
+
+        elif intSel == "Rife-V4.18":
 
             rifeModel = "rife418"
 
             rifeOptions = [
                 inquirer.List(
                     "rifeSel",
-                    message="Which RIFE-4.18 model do you prefer?",
+                    message="Which RIFE-V4.18 model do you prefer?",
                     choices=["Normal", "Ensemble"],
                 )
             ]
@@ -203,14 +185,14 @@ if __name__ == "__main__":
             if rifeSel == "Ensemble":
 
                 rifeEnsemble = True
-        elif intSel == "Rife-4.19":
+        elif intSel == "Rife-V4.19":
 
             rifeModel = "rife419"
 
             rifeOptions = [
                 inquirer.List(
                     "rifeSel",
-                    message="Which RIFE-4.19 model do you prefer?",
+                    message="Which RIFE-V4.19 model do you prefer?",
                     choices=["Normal", "Ensemble"],
                 )
             ]
@@ -221,14 +203,14 @@ if __name__ == "__main__":
             if rifeSel == "Ensemble":
                 rifeEnsemble = True
 
-        elif intSel == "Rife-4.20":
+        elif intSel == "Rife-V4.20":
 
             rifeModel = "rife420"
 
             rifeOptions = [
                 inquirer.List(
                     "rifeSel",
-                    message="Which RIFE-4.20 model do you prefer?",
+                    message="Which RIFE-V4.20 model do you prefer?",
                     choices=["Normal", "Ensemble"],
                 )
             ]
@@ -239,21 +221,56 @@ if __name__ == "__main__":
             if rifeSel == "Ensemble":
 
                 rifeEnsemble = True
-        elif intSel == "Rife-4.21":
+        elif intSel == "Rife-V4.21":
 
             rifeModel = "rife421"
 
             rifeOptions = [
                 inquirer.List(
                     "rifeSel",
-                    message="Which RIFE-4.21 model do you prefer?",
+                    message="Which RIFE-V4.21 model do you prefer?",
                     choices=["Normal"],
                 )
             ]
 
             rifeAnswers = inquirer.prompt(rifeOptions)
+        elif intSel == "Rife-V4.22":
+
+            rifeModel = "rife422"
+
+            rifeOptions = [
+                inquirer.List(
+                    "rifeSel",
+                    message="Which RIFE-V4.22 model do you prefer?",
+                    choices=["Normal", "Lite"],
+                )
+            ]
+
+            rifeAnswers = inquirer.prompt(rifeOptions)
+            rifeSel = rifeAnswers["rifeSel"]
+
+            if rifeSel == "Lite":
+                rifeHalf = True
+        elif intSel == "Rife-V4.24":
+
+            rifeModel = "rife424"
+
+            rifeOptions = [
+                inquirer.List(
+                    "rifeSel",
+                    message="Which RIFE-V4.24 model do you prefer?",
+                    choices=["Normal", "Ensemble"],
+                )
+            ]
+
+            rifeAnswers = inquirer.prompt(rifeOptions)
+            rifeSel = rifeAnswers["rifeSel"]
+
+            if rifeSel == "Ensemble":
+                rifeEnsemble = True
 
         os.system(command="cls")
+        Initialize("", "", "", "")
 
         interpolateFOptions = [
             inquirer.List(
@@ -273,8 +290,6 @@ if __name__ == "__main__":
 
         intFAnswers = inquirer.prompt(interpolateFOptions)
         intFSel = intFAnswers["intFSel"]
-        os.system(command="cls")
-        Initialize("", "", "", "")
 
         if intFSel == "2x":
             intFactor = 2
@@ -292,6 +307,7 @@ if __name__ == "__main__":
             intFactor = 8
 
         os.system(command="cls")
+        Initialize("", "", "", "")
 
         if file == "no-file":
 
@@ -311,40 +327,7 @@ if __name__ == "__main__":
 
         model = initialize.getModel()
 
-        if "rife" in model:
-            model = model[:-4]
-
-        if "-ensemble-lite" in model or "-ensemble-fast" in model:
-            folderPath = os.path.join(modelsDir, model[:-14])
-        elif "-lite" in model or "-fast" in model:
-            folderPath = os.path.join(modelsDir, model[:-5])
-        elif "-ensemble" in model:
-            folderPath = os.path.join(modelsDir, model[:-9])
-        elif (
-            "-ensemble" not in model
-            or "-ensemble-fast" not in model
-            or "-lite" not in model
-            or "-fast" not in model
-            and "rife" in model
-        ):
-            folderPath = os.path.join(modelsDir, model)
-
-        if "-ensemble-lite" in model or "-ensemble-fast" in model:
-            modelPath = os.path.join(folderPath, "ncnn", "ensemble-fast")
-        elif "-lite" in model or "-fast" in model:
-            modelPath = os.path.join(folderPath, "ncnn", "fast")
-        elif "-ensemble" in model:
-            modelPath = os.path.join(folderPath, "ncnn", "ensemble")
-        elif (
-            "-ensemble" not in model
-            or "-ensemble-fast" not in model
-            or "-lite" not in model
-            or "-fast" not in model
-            and "rife" in model
-        ):
-            modelPath = os.path.join(folderPath, "ncnn")
-
-        model = initialize.getModel()
+        folderPath = os.path.join(modelsDir, model)
 
         if model in ["no-model", "no-cuda-model", "no-onnx-model", "no-ncnn-model"]:
             exit(404)
@@ -353,10 +336,10 @@ if __name__ == "__main__":
             model = model[:-4]
             modelType = "ncnn"
 
-        if not os.path.exists(os.path.join(modelPath)):
+        if not os.path.exists(os.path.join(modelsDir, model)):
             initialize.downloadModel(model)
 
-            ffmpeg = FFMPEG(filePath=fileAnswer["filePath"])
+            ffmpeg = FFMPEG(filePath=fileAnswer["filePath"], factor=intFactor)
 
             videoFrames = ffmpeg.extractInfo()[0]
             videoFps = ffmpeg.extractInfo()[1]
@@ -364,7 +347,7 @@ if __name__ == "__main__":
             videoName = ffmpeg.extractInfo()[3]
 
             rife = RIFE(
-                rf"{os.path.join(modelPath)}",
+                rf"{os.path.join(modelsDir, model)}",
                 videoDuration,
                 videoFrames,
                 videoFps,
@@ -374,11 +357,19 @@ if __name__ == "__main__":
             ffmpeg.extract()
             rife.run()
             ffmpeg.merge()
+            shutil.rmtree(os.path.join(framesDir))
 
         else:
             ##### FFMPEG RUNS #####
 
-            ffmpeg = FFMPEG(filePath=fileAnswer["filePath"])
+            ffmpeg = FFMPEG(filePath=fileAnswer["filePath"], factor=intFactor)
+
+            if not os.path.exists(framesDir):
+                os.makedirs(framesDir)
+            if not os.path.exists(tmp_framesDir):
+                os.makedirs(tmp_framesDir)
+            if not os.path.exists(out_framesDir):
+                os.makedirs(out_framesDir)
 
             videoFrames = ffmpeg.extractInfo()[0]
             videoFps = ffmpeg.extractInfo()[1]
@@ -386,7 +377,7 @@ if __name__ == "__main__":
             videoName = ffmpeg.extractInfo()[3]
 
             rife = RIFE(
-                rf"{os.path.join(modelPath)}",
+                rf"{os.path.join(modelsDir, model)}",
                 videoDuration,
                 videoFrames,
                 videoFps,
@@ -396,3 +387,4 @@ if __name__ == "__main__":
             ffmpeg.extract()
             rife.run()
             ffmpeg.merge()
+            shutil.rmtree(os.path.join(framesDir))

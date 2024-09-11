@@ -1,7 +1,4 @@
-import cv2
-import sys
 import os
-import threading
 import numpy as np
 from downloadModels import modelsDir, modelsMap
 
@@ -35,20 +32,21 @@ else:
 class RIFE:
     def __init__(
         self,
-        modelPath: str,
+        model: str,
         duration: float,
         frames: float,
         fps: float,
         factor: int,
     ):
-        self.modelPath = modelPath
+        self.model = model
         self.duration = duration
         self.frames = frames
         self.fps = fps
         self.factor = factor
 
-        self.upFps = fps * factor
-        self.upFrames = frames / fps
+        self.upFps = self.fps * self.factor
+        self.upFrames = self.frames * self.factor
+        self.upDuration = self.upFrames / self.upFps
 
     def run(self):
 
@@ -63,7 +61,7 @@ class RIFE:
             outList = os.listdir(out_framesDir)
             if file not in outList:
                 os.system(
-                    command=rf'rife-ncnn.exe -0 "{tmp_framesDir}\%0d.png" -1 "{tmp_framesDir}\%0d.png" -i "{tmp_framesDir}" -o "{out_framesDir}" -n {self.upFrames} -m {self.modelPath} -f "%0d.png"'
+                    command=rf'rife-ncnn.exe -i "{tmp_framesDir}" -o "{out_framesDir}" -n "{self.upFrames}" -s "0.1" -m "{self.model}" -f "%0d.png"'
                 )
             else:
                 file1 += 1
