@@ -76,13 +76,13 @@ class FFMPEG:
                 os.remove(os.path.join(tmp_framesDir, file))
 
         os.system(
-            command=rf'ffmpeg.exe -i "{self.filePath}" "{tmp_framesDir}\%0d.png" -preset veryslow'
+            command=rf'ffmpeg.exe -i "{self.filePath}" "{tmp_framesDir}\%08d.png" -preset veryslow'
         )
 
     def merge(self):
 
         os.system(
-            command=rf'ffmpeg.exe -r "{self.upFps}" -i "{out_framesDir}\%0d.png" -i "{self.filePath}" -c:v libx264 -preset veryslow -qp 0 -r "{self.upFps}" -t "{self.upDuration}" -y "{self.name}.mp4"'
+            command=rf'ffmpeg.exe -r "{self.upFps}" -i "{out_framesDir}\%08d.png" -i "{self.filePath}" -c:v libx264 -preset veryslow -qp 0 -r "{self.upFps}" -t "{self.upDuration}" -y "{self.name}.mp4"'
         )
 
     def extractInfo(self):

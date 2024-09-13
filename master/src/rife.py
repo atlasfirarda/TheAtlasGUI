@@ -61,7 +61,7 @@ class RIFE:
             outList = os.listdir(out_framesDir)
             if file not in outList:
                 os.system(
-                    command=rf'rife-ncnn.exe -i "{tmp_framesDir}" -o "{out_framesDir}" -n "{self.upFrames}" -s "0.1" -m "{self.model}" -f "%0d.png"'
+                    command=rf'rife-ncnn.exe -i "{tmp_framesDir}" -o "{out_framesDir}" -n "{self.upFrames}" -s "0.5" -m "{self.model}" -f "%08d.png"'
                 )
             else:
                 file1 += 1

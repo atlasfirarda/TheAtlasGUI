@@ -1,2 +1,0 @@
-file = input("")
-print(file)
