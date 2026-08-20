@@ -68,7 +68,7 @@ We welcome contributions! Please follow these steps:
 
 ## License
 
-This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **Atlas Ata KAHRAMAN Non-Commercial License (AAKNCL) v1.0** - see [LICENSE.md](LICENSE.md). Commercial use requires a separate license; see [LICENSE-COMMERCIAL.md](LICENSE-COMMERCIAL.md).
 
 ## Contact
 
